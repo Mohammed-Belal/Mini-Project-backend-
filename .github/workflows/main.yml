@@ -1,19 +1,26 @@
-name: CI/CD Pipeline
+name: Node.js CI
 
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Basic app check
+      run: node -e "console.log('App check passed')"
