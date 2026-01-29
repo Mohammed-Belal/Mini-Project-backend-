@@ -22,5 +22,5 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Verify app entry
-      run: node app.js
+    - name: Basic syntax check
+      run: node -e "require('./app'); console.log('App loaded successfully')"
